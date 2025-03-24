@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,37 +7,35 @@
     <link rel="stylesheet" href="./assets/styles/style.css">
 </head>
 <body>
-    <main>
-        
+    <!-- Navbar -->
+    <nav class="navbar glass">
+        <div class="logo">Happy Meal</div>
+        <div class="cart">
+            <span id="cart-count">0</span> 🛒
+            <div id="cart-items" class="cart-dropdown glass"></div>
+        </div>
+    </nav>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <!-- Contenu principal -->
+    <main class="container">
+        <h1>Nos Recettes</h1>
+        <div id="recipe-grid" class="recipe-grid"></div>
     </main>
-    
+
+    <!-- Popup pour détails -->
+    <div id="recipe-modal" class="modal glass">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 id="modal-title"></h2>
+            <p id="modal-time"></p>
+            <h3>Ingrédients</h3>
+            <ul id="modal-ingredients"></ul>
+            <p id="modal-price"></p>
+            <button id="add-to-cart">Ajouter au panier</button>
+            <button id="add-to-favorites">Ajouter aux favoris</button>
+        </div>
+    </div>
+
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>
