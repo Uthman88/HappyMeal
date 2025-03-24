@@ -1,26 +1,27 @@
-// Données JSON (simulées ici, à remplacer par un fetch si fichier externe)
-let recettesData;
-
-fetch('/assets/data/recettes.json')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Erreur lors du chargement des données');
-        }
-        return response.json();
-    })
-    .then(data => {
-        recettesData = data;
-        loadRecipes();
-    })
-    .catch(error => console.error('Erreur:', error));
-
 // Variables globales
 let cart = [];
 let favorites = [];
+let recettesData = null; // Stocke les données JSON après récupération
+
+// Fonction pour charger les recettes depuis un fichier JSON via fetch
+async function fetchRecipes() {
+    try {
+        const response = await fetch('/setting.json'); // Chemin vers ton fichier JSON
+        if (!response.ok) {
+            throw new Error('Erreur lors de la récupération du fichier JSON');
+        }
+        recettesData = await response.json();
+        loadRecipes(); // Appeler la fonction pour afficher les recettes une fois les données récupérées
+    } catch (error) {
+        console.error('Erreur:', error);
+        document.getElementById('recipe-grid').innerHTML = '<p>Erreur lors du chargement des recettes.</p>';
+    }
+}
 
 // Charger les recettes dans la grille
 function loadRecipes() {
     const recipeGrid = document.getElementById('recipe-grid');
+    recipeGrid.innerHTML = ''; // Vider la grille avant de la remplir
     recettesData.recettes.forEach((recette, index) => {
         const card = document.createElement('div');
         card.classList.add('recipe-card', 'glass');
@@ -86,5 +87,7 @@ function updateCart() {
     cartItems.innerHTML = cart.map(item => `<p>${item.nom}</p>`).join('');
 }
 
-// Initialisation
-window.onload = loadRecipes;
+// Initialisation : charger les recettes au démarrage
+window.onload = function() {
+    fetchRecipes(); // Appeler fetch pour récupérer et afficher les recettes
+};
