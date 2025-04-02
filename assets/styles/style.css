@@ -202,3 +202,19 @@ button {
 button:hover {
     background: #9d80d8;
 }
+
+/* Planning hebdomadaire */
+.day-section {
+    margin-bottom: 20px;
+}
+
+.day-section h4 {
+    margin-bottom: 10px;
+}
+
+.recipe-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}

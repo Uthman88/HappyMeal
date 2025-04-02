@@ -19,15 +19,15 @@ function openPlanningModal(recette) {
     };
 }
 
-// Afficher le planning en mode flottant
+// Afficher le planning hebdomadaire dans le planning flottant
 function showFloatingPlanning() {
     const floatingPlanning = document.getElementById('floating-planning');
-    floatingPlanning.innerHTML = Object.entries(planning).map(([date, recettes]) => `
+    const weeklyPlanning = JSON.parse(localStorage.getItem('weeklyPlanning')) || {};
+
+    floatingPlanning.innerHTML = Object.entries(weeklyPlanning).map(([day, recette]) => `
         <div>
-            <h4>${date}</h4>
-            <ul>
-                ${recettes.map(r => `<li>${r.nom}</li>`).join('')}
-            </ul>
+            <h4>${day}</h4>
+            <p>${recette ? recette.nom : 'Aucune recette sélectionnée'}</p>
         </div>
     `).join('');
     floatingPlanning.style.display = 'block';
@@ -49,3 +49,52 @@ function closeFloatingPlanning() {
     const floatingPlanning = document.getElementById('floating-planning');
     floatingPlanning.style.display = 'none';
 }
+
+// Ouvrir le popup pour le planning hebdomadaire
+function openWeeklyPlanningModal() {
+    const weeklyPlanningModal = document.getElementById('weekly-planning-modal');
+    const weeklyPlanningContainer = document.getElementById('weekly-planning-container');
+
+    // Réinitialiser le contenu
+    weeklyPlanningContainer.innerHTML = '';
+
+    // Jours de la semaine
+    const daysOfWeek = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+
+    // Générer les sections pour chaque jour
+    daysOfWeek.forEach(day => {
+        const daySection = document.createElement('div');
+        daySection.classList.add('day-section');
+        daySection.innerHTML = `
+            <h4>${day}</h4>
+            <select class="recipe-select" data-day="${day}">
+                <option value="">-- Choisir une recette --</option>
+                ${recettesData.recettes.map(recette => `<option value="${recette.nom}">${recette.nom}</option>`).join('')}
+            </select>
+        `;
+        weeklyPlanningContainer.appendChild(daySection);
+    });
+
+    // Afficher le popup
+    weeklyPlanningModal.style.display = 'flex';
+}
+
+// Enregistrer le planning hebdomadaire
+document.getElementById('save-weekly-planning').addEventListener('click', () => {
+    const selectedRecipes = {};
+    const selects = document.querySelectorAll('.recipe-select');
+
+    selects.forEach(select => {
+        const day = select.getAttribute('data-day');
+        const recipeName = select.value;
+        if (recipeName) {
+            const recette = recettesData.recettes.find(r => r.nom === recipeName);
+            selectedRecipes[day] = recette;
+        }
+    });
+
+    // Sauvegarder dans le localStorage
+    localStorage.setItem('weeklyPlanning', JSON.stringify(selectedRecipes));
+    alert('Planning hebdomadaire enregistré !');
+    document.getElementById('weekly-planning-modal').style.display = 'none';
+});

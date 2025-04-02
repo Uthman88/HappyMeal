@@ -29,11 +29,9 @@
                     <p>Aucune information de contact pour le moment</p>
                 </div>
             </li>
+        
             <li class="dropdown">
-                <a href="#" class="dropbtn">planning</a>
-                <div class="dropdown-content glass" id="planning-menu">
-                    <p>Aucun planning pour le moment</p>
-                </div>
+                <a href="#" class="dropbtn" onclick="openWeeklyPlanningModal()">Planning</a>
             </li>
         </ul>
         <div class="search-bar">
@@ -78,6 +76,18 @@
         </div>
     </div>
 
+    <!-- Popup pour le planning hebdomadaire -->
+    <div id="weekly-planning-modal" class="modal glass">
+        <div class="modal-content">
+            <span class="close-btn" onclick="document.getElementById('weekly-planning-modal').style.display='none'">×</span>
+            <h3>Créer un planning hebdomadaire</h3>
+            <div id="weekly-planning-container">
+                <!-- Les jours de la semaine seront générés dynamiquement -->
+            </div>
+            <button id="save-weekly-planning">Enregistrer le planning</button>
+        </div>
+    </div>
+
     <!-- Planning flottant -->
     <div id="floating-planning" class="glass floating-planning">
         <h3>Planning</h3>
@@ -90,5 +100,6 @@
     <script src="./assets/js/script.js"></script>
     <script src="./assets/js/planning.js"></script>
     <script src="./assets/js/scripts.js"></script>
+
 </body>
 </html>
