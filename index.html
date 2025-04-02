@@ -23,8 +23,18 @@
                     <p>Aucun favori pour le moment</p>
                 </div>
             </li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">À propos de nous</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Contact</a>
+                <div class="dropdown-content glass" id="Contact">
+                    <p>Aucune information de contact pour le moment</p>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">planning</a>
+                <div class="dropdown-content glass" id="planning-menu">
+                    <p>Aucun planning pour le moment</p>
+                </div>
+            </li>
         </ul>
         <div class="search-bar">
             <input type="text" id="search-input" placeholder="Rechercher...">
@@ -53,9 +63,32 @@
             <p id="modal-price"></p>
             <button id="add-to-cart">Ajouter au panier</button>
             <button id="add-to-favorites">Ajouter aux favoris</button>
+            <button id="add-to-planning">Ajouter au planning</button>
         </div>
     </div>
 
+    <!-- Popup pour le planning -->
+    <div id="planning-modal" class="modal glass">
+        <div class="modal-content">
+            <span class="close-btn" onclick="document.getElementById('planning-modal').style.display='none'">×</span>
+            <h3>Ajouter au planning</h3>
+            <label for="planning-date">Choisir une date :</label>
+            <input type="date" id="planning-date">
+            <button id="confirm-planning">Confirmer</button>
+        </div>
+    </div>
+
+    <!-- Planning flottant -->
+    <div id="floating-planning" class="glass floating-planning">
+        <h3>Planning</h3>
+        <button onclick="closeFloatingPlanning()">Fermer</button>
+    </div>
+
+    <!-- Bouton pour afficher le planning flottant -->
+    <button onclick="showFloatingPlanning()" class="floating-planning-btn">Voir le planning</button>
+
     <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/planning.js"></script>
+    <script src="./assets/js/scripts.js"></script>
 </body>
 </html>

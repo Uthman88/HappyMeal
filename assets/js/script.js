@@ -48,27 +48,17 @@ function loadRecipes() {
     });
 }
 
-// Afficher la popup avec détails
+// Afficher les détails d'une recette
 function showRecipeModal(index) {
     const recette = recettesData.recettes[index];
     const modal = document.getElementById('recipe-modal');
     document.getElementById('modal-title').textContent = recette.nom;
     document.getElementById('modal-time').textContent = `Temps: ${recette.temps_preparation}`;
-    
     const ingredientsList = document.getElementById('modal-ingredients');
-    ingredientsList.innerHTML = '';
-    recette.ingredients.forEach(ing => {
-        const li = document.createElement('li');
-        li.textContent = `${ing.nom} - ${ing.quantite}`;
-        ingredientsList.appendChild(li);
-    });
-
-    const price = recette.ingredients.length * 2.5;
-    document.getElementById('modal-price').textContent = `Prix: ${price.toFixed(2)}€`;
-
+    ingredientsList.innerHTML = recette.ingredients.map(ing => `<li>${ing.nom} - ${ing.quantite}</li>`).join('');
     document.getElementById('add-to-cart').onclick = () => addToCart(recette);
     document.getElementById('add-to-favorites').onclick = () => addToFavorites(recette);
-
+    document.getElementById('add-to-planning').onclick = () => openPlanningModal(recette); // Ajout au planning
     modal.style.display = 'flex';
 }
 
