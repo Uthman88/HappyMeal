@@ -45,6 +45,7 @@
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
   
   body {
+    position: relative;
     font-family: 'Inter', system-ui, sans-serif;
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     color: var(--text-primary);
@@ -77,7 +78,14 @@
     margin: 0 auto;
     padding: var(--space-lg);
   }
-  
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0px;
+    gap: 0 20px;
+  }
+
   .page {
     display: none;
     animation: fadeIn 0.5s ease-out;
@@ -127,7 +135,7 @@
   /* Cartes de recettes */
   .recipes-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     gap: var(--space-lg);
     margin-top: var(--space-lg);
   }
@@ -460,6 +468,18 @@
   
   .suggestion-item:hover {
     background: rgba(231, 76, 60, 0.1);
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--dark);
+    color: var(--light);
+  }
+
+  p {
+    text-align: center;
   }
   
   /* Améliorations accessibilité */
