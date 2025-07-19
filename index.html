@@ -3,103 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Meal</title>
+    <title>Cuisine Facile</title>
     <link rel="stylesheet" href="./assets/styles/style.css">
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar glass">
-        <div class="logo">Happy Meal</div>
-        <ul class="nav-links">
-            <li class="dropdown">
-                <a href="#" class="dropbtn">Recettes</a>
-                <div class="dropdown-content glass" id="recipes-menu">
-                    <!-- Rempli dynamiquement via JS -->
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropbtn">Favoris</a>
-                <div class="dropdown-content glass" id="favorites-menu">
-                    <p>Aucun favori pour le moment</p>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropbtn">Contact</a>
-                <div class="dropdown-content glass" id="Contact">
-                    <p>Aucune information de contact pour le moment</p>
-                </div>
-            </li>
-        
-            <li class="dropdown">
-                <a href="#" class="dropbtn" onclick="openWeeklyPlanningModal()">Planning</a>
-            </li>
-        </ul>
-        <div class="search-bar">
-            <input type="text" id="search-input" placeholder="Rechercher...">
-            <div class="suggestions glass" id="suggestions"></div>
-        </div>
-        <div class="cart">
-            <span id="cart-count">0</span> 🛒
-            <div id="cart-items" class="cart-dropdown glass"></div>
-        </div>
-    </nav>
+    <header>
+        <h1>Cuisine Facile</h1>
+        <nav>
+            <button id="home-btn">Accueil</button>
+            <button id="recipes-btn">Toutes les recettes</button>
+            <button id="favorites-btn">Favoris</button>
+            <button id="shopping-btn">Liste de courses</button>
+            <button id="planning-btn">Planning</button>
+        </nav>
+    </header>
 
-    <!-- Contenu principal -->
-    <main class="container">
-        <h1>Nos Recettes</h1>
-        <div id="recipe-grid" class="recipe-grid"></div>
+    <main>
+        <section id="home-page" class="page active">
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Rechercher une recette ou un ingrédient...">
+                <div id="suggestions" class="suggestions"></div>
+            </div>
+            <h2>Découvrez nos recettes</h2>
+            <div id="random-recipes" class="recipes-grid"></div>
+        </section>
+
+        <section id="recipes-page" class="page">
+            <h2>Toutes nos recettes</h2>
+            <div id="all-recipes" class="recipes-grid"></div>
+            <div class="pagination">
+                <button id="prev-page">Précédent</button>
+                <span id="page-info">Page 1</span>
+                <button id="next-page">Suivant</button>
+            </div>
+        </section>
+
+        <section id="favorites-page" class="page">
+            <h2>Vos recettes favorites</h2>
+            <div id="favorites-recipes" class="recipes-grid"></div>
+        </section>
+
+        <section id="shopping-page" class="page">
+            <h2>Votre liste de courses</h2>
+            <div class="shopping-controls">
+                <button id="generate-list">Générer la liste</button>
+                <button id="download-list">Télécharger la liste</button>
+                <button id="clear-list">Vider la liste</button>
+            </div>
+            <ul id="shopping-list"></ul>
+        </section>
+
+        <section id="planning-page" class="page">
+            <h2>Votre planning de repas</h2>
+            <div class="planning-controls">
+                <button id="generate-planning">Générer un planning</button>
+                <button id="clear-planning">Effacer le planning</button>
+            </div>
+            <div id="weekly-planning"></div>
+        </section>
+
+        <div id="recipe-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="modal-title"></h2>
+                <div class="recipe-info">
+                    <span id="modal-category"></span>
+                    <span id="modal-time"></span>
+                </div>
+                <div class="recipe-details">
+                    <div class="ingredients-section">
+                        <h3>Ingrédients</h3>
+                        <ul id="modal-ingredients"></ul>
+                    </div>
+                    <div class="steps-section">
+                        <h3>Étapes de préparation</h3>
+                        <ol id="modal-steps"></ol>
+                    </div>
+                </div>
+                <div class="recipe-actions">
+                    <button id="add-to-favorites">Ajouter aux favoris</button>
+                    <button id="add-to-planning">Ajouter au planning</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="planning-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Ajouter au planning</h2>
+                <div class="planning-options">
+                    <label for="planning-day">Jour :</label>
+                    <select id="planning-day">
+                        <option value="lundi">Lundi</option>
+                        <option value="mardi">Mardi</option>
+                        <option value="mercredi">Mercredi</option>
+                        <option value="jeudi">Jeudi</option>
+                        <option value="vendredi">Vendredi</option>
+                        <option value="samedi">Samedi</option>
+                        <option value="dimanche">Dimanche</option>
+                    </select>
+                    <label for="planning-meal">Repas :</label>
+                    <select id="planning-meal">
+                        <option value="petit-dejeuner">Petit-déjeuner</option>
+                        <option value="dejeuner">Déjeuner</option>
+                        <option value="diner">Dîner</option>
+                    </select>
+                </div>
+                <button id="confirm-planning">Confirmer</button>
+            </div>
+        </div>
     </main>
 
-    <!-- Popup pour détails -->
-    <div id="recipe-modal" class="modal glass">
-        <div class="modal-content">
-            <span class="close-btn">×</span>
-            <h2 id="modal-title"></h2>
-            <p id="modal-time"></p>
-            <h3>Ingrédients</h3>
-            <ul id="modal-ingredients"></ul>
-            <p id="modal-price"></p>
-            <button id="add-to-cart">Ajouter au panier</button>
-            <button id="add-to-favorites">Ajouter aux favoris</button>
-            <button id="add-to-planning">Ajouter au planning</button>
-        </div>
-    </div>
-
-    <!-- Popup pour le planning -->
-    <div id="planning-modal" class="modal glass">
-        <div class="modal-content">
-            <span class="close-btn" onclick="document.getElementById('planning-modal').style.display='none'">×</span>
-            <h3>Ajouter au planning</h3>
-            <label for="planning-date">Choisir une date :</label>
-            <input type="date" id="planning-date">
-            <button id="confirm-planning">Confirmer</button>
-        </div>
-    </div>
-
-    <!-- Popup pour le planning hebdomadaire -->
-    <div id="weekly-planning-modal" class="modal glass">
-        <div class="modal-content">
-            <span class="close-btn" onclick="document.getElementById('weekly-planning-modal').style.display='none'">×</span>
-            <h3>Créer un planning hebdomadaire</h3>
-            <div id="weekly-planning-container">
-                <!-- Les jours de la semaine seront générés dynamiquement -->
-            </div>
-            <button id="save-weekly-planning">Enregistrer le planning</button>
-        </div>
-    </div>
-
-    <!-- Planning flottant -->
-    <div id="floating-planning" class="glass floating-planning">
-        <h3>Planning</h3>
-        <button onclick="closeFloatingPlanning()">Fermer</button>
-    </div>
-
-    <!-- Bouton pour afficher le planning flottant -->
-    <button onclick="showFloatingPlanning()" class="floating-planning-btn">Voir le planning</button>
+    <footer>
+        <p>© 2025 Cuisine Facile - Tous droits réservés</p>
+    </footer>
 
     <script src="./assets/js/script.js"></script>
-    <script src="./assets/js/planning.js"></script>
-    <script src="./assets/js/scripts.js"></script>
-
 </body>
 </html>
